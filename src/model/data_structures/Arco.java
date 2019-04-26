@@ -7,58 +7,58 @@ public class Arco implements Comparable<Arco> {
 	private infoArco informacion;
 	
 	 /**
-     * Initializes an edge between vertices {@code v} and {@code w} of
-     * the given {@code weight}.
-     *
-     * @param  v one vertex
-     * @param  w the other vertex
-     * @param  weight the weight of this edge
-     * @throws IllegalArgumentException if either {@code v} or {@code w} 
-     *         is a negative integer
-     * @throws IllegalArgumentException if {@code weight} is {@code NaN}
-     */
+	  * @param v nodo v
+	  * @param w nodo w
+	  * @param pInformacion información del arco
+	  * inicializa un arco de v a w 
+	  */
     public Arco(int v, int w, infoArco pInformacion) {
         this.v = v;
         this.w = w;
         this.informacion = pInformacion;
     }
 
+    /**
+     * @return la información pertinente del arco
+     */
     public infoArco darInformacion(){
     	return informacion;
     }
     
+    /**
+     * Cambia la información del arco
+     * @param pNuevaInformacion nueva información a ser suministrada en el arco
+     */
     public void cambiarInformacion(infoArco pNuevaInformacion){
     	informacion = pNuevaInformacion;
     }
     
+    /**
+     * @return el id del arco
+     */
     public int darIdArco(){
     	return informacion.darIdArco();
     }
+    
+    
     /**
-     * Returns the weight of this edge.
-     *
-     * @return the weight of this edge
+     * @return el peso del arco
      */
     public double weight() {
         return informacion.darPesoArco();
     }
 
     /**
-     * Returns either endpoint of this edge.
-     *
-     * @return either endpoint of this edge
+     * @return cualquiera de los arcos
      */
     public int either() {
         return v;
     }
 
+
     /**
-     * Returns the endpoint of this edge that is different from the given vertex.
-     *
-     * @param  vertex one endpoint of this edge
-     * @return the other endpoint of this edge
-     * @throws IllegalArgumentException if the vertex is not one of the
-     *         endpoints of this edge
+     * @param vertex 
+     * @return retorna el otro vértice diferente al dado por parámetro
      */
     public int other(int vertex) {
         if      (vertex == v) return w;
@@ -67,11 +67,13 @@ public class Arco implements Comparable<Arco> {
     }
 
 	
+	/**
+	 * Comparador entre arcos por su pedo
+	 */
 	@Override
 	public int compareTo(Arco arg0) {
 		// TODO Auto-generated method stub
 		return Double.compare(this.informacion.darPesoArco(), arg0.informacion.darPesoArco());
-		
 	}
 		
 

@@ -55,8 +55,19 @@ public interface IGraph<K,V>{
 	 */
 	Iterator<K> adj(K idVertex);
 	
-	public int encontrarNumNodo(K idVertex);
 	
+	
+	/**
+	 * Retorna el numero (int) del nodo dado el id
+	 */
+	public int encontrarNumNodo(K idVertex);
+
+	
+	
+	
+	/**
+	 * Retorna el id del nodo (K) dado el numero del nodo
+	 */
 	public K encontrarNodo(int numNodo);
 	
 

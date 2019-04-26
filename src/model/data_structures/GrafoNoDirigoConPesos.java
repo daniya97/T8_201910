@@ -145,11 +145,11 @@ public class GrafoNoDirigoConPesos<K,V> implements IGraph<K, V> {
 
 			int numNodo = tablaNodoANum.get(idVertex);
 			LinkedList<Arco> aux = adj.get(numNodo);
-			Nodo<Arco> actual = aux.darPrimerNodo();
+			Nodo<Arco> siguiente = aux.darPrimerNodo();
 			
 			@Override
 			public boolean hasNext() {
-				if(actual.darSiguiente()!=null){
+				if(siguiente!=null){
 					return true;
 				}else{
 					return false;
@@ -158,14 +158,14 @@ public class GrafoNoDirigoConPesos<K,V> implements IGraph<K, V> {
 
 			@Override
 			public K next() {
-				actual = actual.darSiguiente();
-				return tablaNumANodo.darObjeto(actual.darObjeto().other(numNodo));
+			K auxiliar = 	tablaNumANodo.darObjeto(siguiente.darObjeto().other(numNodo));
+			siguiente = siguiente.darSiguiente();
+			return auxiliar;
 				// TODO Auto-generated method stub
 			}
 		};
 		// TODO Auto-generated method stub
 	}
-
 
 
 }

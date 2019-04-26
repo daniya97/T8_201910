@@ -1,5 +1,6 @@
 package model.data_structures;
 
+
 import java.util.Iterator;
 
 import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
@@ -139,8 +140,30 @@ public class GrafoNoDirigoConPesos<K,V> implements IGraph<K, V> {
 
 	@Override
 	public Iterator<K> adj(K idVertex) {
+		
+		return new Iterator<K>() {
+
+			int numNodo = tablaNodoANum.get(idVertex);
+			LinkedList<Arco> aux = adj.get(numNodo);
+			Nodo<Arco> actual = aux.darPrimerNodo();
+			
+			@Override
+			public boolean hasNext() {
+				if(actual.darSiguiente()!=null){
+					return true;
+				}else{
+					return false;
+				}
+			}
+
+			@Override
+			public K next() {
+				actual = actual.darSiguiente();
+				return tablaNumANodo.darObjeto(actual.darObjeto().other(numNodo));
+				// TODO Auto-generated method stub
+			}
+		};
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 

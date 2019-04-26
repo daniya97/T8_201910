@@ -1,5 +1,7 @@
 package view;
 
+import java.io.File;
+
 import model.data_structures.IArregloDinamico;
 import model.data_structures.IColaPrioridad;
 import model.data_structures.IQueue;
@@ -49,6 +51,11 @@ public class MovingViolationsManagerView
 	
 	public void printMapa() {
 		//TODO
+	}
+
+	public void printReq3(File htmlMapa) {
+		
+		
 	}
 
 }

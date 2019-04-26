@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import java.io.File;
+
 import model.logic.MovingViolationsManager;
 import view.MovingViolationsManagerView;
 
@@ -88,9 +90,11 @@ public class Controller {
 
 				case 3:
 					view.printMessage("TODO");
-					//esSatisfactorio = model.crearMapa();
-					//view.printReq2(esSatisfactorio);
+					String nombreHTML = sc.next();
+					File htmlMapa = model.crearMapa(nombreHTML);
+					view.printReq3(htmlMapa);
 					break;
+				
 					
 				case 11:
 					fin=true;

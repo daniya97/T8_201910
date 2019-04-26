@@ -1,11 +1,11 @@
 package model.logic;
 
+import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 
 import javax.xml.parsers.*;
 import org.xml.sax.*;
-import org.xml.sax.helpers.*;
 
 import model.data_structures.IGraph;
 
@@ -59,5 +59,7 @@ public class MovingViolationsManager {
 		return false;
 	}
 	
-	
+	public File crearMapa(String nombreHTML) {
+		
+	}
 }

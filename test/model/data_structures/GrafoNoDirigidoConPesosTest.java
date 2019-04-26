@@ -34,10 +34,6 @@ public class GrafoNoDirigidoConPesosTest extends TestCase {
 	}
 	
 	
-	// Caso gran escala
-	private void setUpEscenario2() {
-	}
-
 	
 	public void testEscenario0(){
 		

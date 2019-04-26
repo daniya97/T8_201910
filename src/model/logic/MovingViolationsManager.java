@@ -1,6 +1,7 @@
 package model.logic;
 
 import java.io.IOException;
+import java.math.BigInteger;
 
 import javax.xml.parsers.*;
 import org.xml.sax.*;
@@ -13,7 +14,7 @@ public class MovingViolationsManager {
 	/**
 	 * Lista donde se van a cargar los datos de los archivos
 	 */
-	private static IGraph<Integer, LatLonCoords> grafoIntersecciones;
+	private static IGraph<BigInteger, LatLonCoords> grafoIntersecciones;
 
 
 	/*

@@ -1,5 +1,7 @@
 package model.logic;
 
+import java.math.BigInteger;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -14,9 +16,9 @@ public class LectorXML extends DefaultHandler {
 	/*
 	 * Atributos
 	 */
-	private IGraph<Integer, LatLonCoords> grafo;
+	private IGraph<BigInteger, LatLonCoords> grafo;
 	public boolean insideWay = false;
-	IQueue<Integer> wayVertexKeys = null;
+	IQueue<BigInteger> wayVertexKeys = null;
 	int wayId;
 	
 	
@@ -26,7 +28,7 @@ public class LectorXML extends DefaultHandler {
 	 * Metodos de DefaultHandler
 	 */
 	public void startDocument() throws SAXException {
-		grafo = new GrafoNDPesos<Integer, LatLonCoords>();
+		grafo = new GrafoNDPesos<BigInteger, LatLonCoords>();
 	}
 	
 	public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws SAXException {
@@ -35,7 +37,7 @@ public class LectorXML extends DefaultHandler {
 		if(tag.equals("node")) {
 			//System.out.println("Node");
 			LatLonCoords info = new LatLonCoords(Double.parseDouble(atts.getValue("lat")), Double.parseDouble(atts.getValue("lon")));
-			grafo.addVertex(Integer.parseInt(atts.getValue("id")), info);
+			grafo.addVertex(new BigInteger(atts.getValue("id")), info); // BigIng
 		}
 		
 		if (tag.equals("way")) {	
@@ -45,15 +47,15 @@ public class LectorXML extends DefaultHandler {
 		}
 		
 		if (tag.equals("nd") && insideWay) {
-			wayVertexKeys.enqueue(Integer.parseInt(atts.getValue("ref")));
+			wayVertexKeys.enqueue(new BigInteger(atts.getValue("ref"))); //BigInt
 		}
 		
 		if (tag.equals("tag") && insideWay && atts.getValue("k").equals("highway")) {
-			Integer anteriorK = null;
+			BigInteger anteriorK = null;
 			LatLonCoords coordsAnt = new LatLonCoords(-1, -1);
 			LatLonCoords coordsAct;
 			
-			for (Integer vertexK : wayVertexKeys) {
+			for (BigInteger vertexK : wayVertexKeys) {
 				if (anteriorK == null) {
 					anteriorK = vertexK; 
 					coordsAnt = new LatLonCoords(grafo.getInfoVertex(anteriorK).getLat(),
@@ -82,7 +84,7 @@ public class LectorXML extends DefaultHandler {
 	/*
 	 * Metodos para interaccion con el Manager
 	 */
-	public IGraph<Integer, LatLonCoords> darGrafo(){
+	public IGraph<BigInteger, LatLonCoords> darGrafo(){
 		return grafo;
 	}
 }

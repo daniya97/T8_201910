@@ -66,7 +66,7 @@ public class Controller {
 				case 0:
 					view.printMessage("Ingrese el nombre del archivo (guardado en 'data'):");
 					String nombreXML = sc.next();
-					Integer[] resultados0 = model.loadXML(nombreXML);
+					Integer[] resultados0 = model.loadXML("./data/"+nombreXML);
 					view.printResumenCarga(resultados0);
 					break;
 					

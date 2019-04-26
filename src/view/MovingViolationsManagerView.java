@@ -32,7 +32,8 @@ public class MovingViolationsManagerView
 	}
 
 	public void printResumenCarga(Integer[] resultados0) {
-		// TODO Auto-generated method stub
+		System.out.println("Numero de Vertices: " + resultados0[0]);
+		System.out.println("Numero de Arcos: " + resultados0[1]);
 		
 	}
 

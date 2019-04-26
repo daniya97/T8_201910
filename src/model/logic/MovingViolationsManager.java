@@ -13,7 +13,7 @@ public class MovingViolationsManager {
 	/**
 	 * Lista donde se van a cargar los datos de los archivos
 	 */
-	private static IGraph<Integer, InfoInterseccion> grafoIntersecciones;
+	private static IGraph<Integer, LatLonCoords> grafoIntersecciones;
 
 
 	/*
@@ -41,7 +41,9 @@ public class MovingViolationsManager {
 		xmlReader.setContentHandler(manejadorDeEventos);
 		xmlReader.parse(nombreXML);
 		
-		return null;
+		grafoIntersecciones = manejadorDeEventos.darGrafo();
+		
+		return new Integer[] {grafoIntersecciones.V(), grafoIntersecciones.E()};
 	}
 
 

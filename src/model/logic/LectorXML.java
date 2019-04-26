@@ -8,14 +8,17 @@ import model.data_structures.GrafoNDPesos;
 import model.data_structures.IGraph;
 import model.data_structures.IQueue;
 import model.data_structures.Queue;
+import model.data_structures.infoArco;
 
 public class LectorXML extends DefaultHandler {
 	/*
 	 * Atributos
 	 */
-	private IGraph<Integer, InfoInterseccion> grafo;
+	private IGraph<Integer, LatLonCoords> grafo;
 	public boolean insideWay = false;
 	IQueue<Integer> wayVertexKeys = null;
+	int wayId;
+	
 	
 	public LectorXML() { }
 	
@@ -23,7 +26,7 @@ public class LectorXML extends DefaultHandler {
 	 * Metodos de DefaultHandler
 	 */
 	public void startDocument() throws SAXException {
-		grafo = new GrafoNDPesos<Integer, InfoInterseccion>();
+		grafo = new GrafoNDPesos<Integer, LatLonCoords>();
 	}
 	
 	public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws SAXException {
@@ -31,13 +34,14 @@ public class LectorXML extends DefaultHandler {
 		
 		if(tag.equals("node")) {
 			//System.out.println("Node");
-			InfoInterseccion info = new InfoInterseccion(Double.parseDouble(atts.getValue("lat")), Double.parseDouble(atts.getValue("lon")));
+			LatLonCoords info = new LatLonCoords(Double.parseDouble(atts.getValue("lat")), Double.parseDouble(atts.getValue("lon")));
 			grafo.addVertex(Integer.parseInt(atts.getValue("id")), info);
 		}
 		
 		if (tag.equals("way")) {	
 			insideWay = true;
 			wayVertexKeys = new Queue<>(); 
+			wayId = Integer.parseInt(atts.getValue("id"));
 		}
 		
 		if (tag.equals("nd") && insideWay) {
@@ -46,10 +50,22 @@ public class LectorXML extends DefaultHandler {
 		
 		if (tag.equals("tag") && insideWay && atts.getValue("k").equals("highway")) {
 			Integer anteriorK = null;
+			LatLonCoords coordsAnt = new LatLonCoords(-1, -1);
+			LatLonCoords coordsAct;
 			
 			for (Integer vertexK : wayVertexKeys) {
-				if (anteriorK == null) {anteriorK = vertexK; continue;}
+				if (anteriorK == null) {
+					anteriorK = vertexK; 
+					coordsAnt = new LatLonCoords(grafo.getInfoVertex(anteriorK).getLat(),
+							 grafo.getInfoVertex(anteriorK).getLon());
+					
+					continue;
+				}
 				
+				coordsAct = new LatLonCoords(grafo.getInfoVertex(vertexK).getLat(),
+						 					 grafo.getInfoVertex(vertexK).getLon());
+				
+				grafo.addEdge(anteriorK, vertexK, new infoArco(wayId, coordsAnt.haversineD(coordsAct)));
 			}
 		}
 	}
@@ -66,4 +82,7 @@ public class LectorXML extends DefaultHandler {
 	/*
 	 * Metodos para interaccion con el Manager
 	 */
+	public IGraph<Integer, LatLonCoords> darGrafo(){
+		return grafo;
+	}
 }

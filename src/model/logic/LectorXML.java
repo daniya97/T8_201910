@@ -31,7 +31,7 @@ public class LectorXML extends DefaultHandler {
 		
 		if(tag.equals("node")) {
 			//System.out.println("Node");
-			InfoInterseccion info = new InfoInterseccion(atts.getValue("lat"), atts.getValue("lon"));
+			InfoInterseccion info = new InfoInterseccion(Double.parseDouble(atts.getValue("lat")), Double.parseDouble(atts.getValue("lon")));
 			grafo.addVertex(Integer.parseInt(atts.getValue("id")), info);
 		}
 		
@@ -57,6 +57,7 @@ public class LectorXML extends DefaultHandler {
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		if (localName.equals("way")) {
 			insideWay = false;
+			wayVertexKeys = null;
 		}
 	}
 	

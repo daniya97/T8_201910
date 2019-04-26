@@ -2,8 +2,12 @@ package model.logic;
 
 public class InfoInterseccion {
 
-	public InfoInterseccion(String value, String value2) {
-		// TODO Auto-generated constructor stub
+	private double lon;
+	private double lat;
+	
+	public InfoInterseccion(double plat, double plon) {
+		lon = plon;
+		lat = plat;
 	}
 	
 }

@@ -3,11 +3,8 @@ package model.data_structures;
 
 import java.util.Iterator;
 
-import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
 
-import javax.swing.tree.DefaultTreeCellEditor.EditorContainer;
-
-public class GrafoNoDirigoConPesos<K,V> implements IGraph<K, V> {
+public class GrafoNDPesos<K,V> implements IGraph<K, V> {
 
 	private int V;
 	private int E;
@@ -20,11 +17,11 @@ public class GrafoNoDirigoConPesos<K,V> implements IGraph<K, V> {
 	
 
 	
-	public GrafoNoDirigoConPesos() {
+	public GrafoNDPesos() {
 	V = 0;
 	E = 0;
 	
-	//REVISAR QUE TABLA Y EL TAMAÑO INICIAL
+	//REVISAR QUE TABLA Y EL TAMAï¿½O INICIAL
 	tablaNodoANum = new LinProbTH<>(cte);
 	informacionNodos = new ArregloDinamico<>(cte);
 	tablaNumANodo = new ArregloDinamico<>(cte);
@@ -181,10 +178,10 @@ public class GrafoNoDirigoConPesos<K,V> implements IGraph<K, V> {
 
 
 
-	//Métodos Tablas de Transformación
+	//Mï¿½todos Tablas de Transformaciï¿½n
 	
 	public int encontrarNumNodo(K idVertex){
-		//CONVENCIÓN -> -1 es por que no existe
+		//CONVENCIï¿½N -> -1 es por que no existe
 		if(tablaNodoANum.get(idVertex) == null) return -1;
 		return tablaNodoANum.get(idVertex);
 	}

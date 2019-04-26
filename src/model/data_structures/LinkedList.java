@@ -7,6 +7,8 @@ import java.util.Iterator;
 public class LinkedList <K> implements ILinkedList<K>{
 	
 	
+	private int tamano;
+	
 	/**
 	 * Guarda el primer nodo
 	 */
@@ -17,12 +19,34 @@ public class LinkedList <K> implements ILinkedList<K>{
 	 */
 	public LinkedList(K primerNodo) {
 		primero = new Nodo<>(primerNodo);
+		tamano = 1;
 	}
 	
 	@Override
 	public Iterator<K> iterator() {
 		// TODO Auto-generated method stub
-		return null;
+		return new Iterator<K>() {
+
+			Nodo<K> actual = primero;
+			
+			@Override
+			public boolean hasNext() {
+				if(actual!=null){
+					return true;
+				}else{
+					return false;
+				}
+			}
+
+			@Override
+			public K next() {
+			
+			Nodo<K> auxiliar = actual;
+			actual = actual.darSiguiente();
+			return auxiliar.darObjeto();
+				// TODO Auto-generated method stub
+			}
+		};
 	}
 
 	
@@ -44,7 +68,7 @@ public class LinkedList <K> implements ILinkedList<K>{
 		primero = nuevo;
 		}
 		
-		
+		tamano++;
 	}
 	
 
@@ -53,17 +77,7 @@ public class LinkedList <K> implements ILinkedList<K>{
 	 */
 	@Override
 	public int darTamanoLista() {
-	
-		int contador = 0;
-		
-		Nodo<K> actual = primero;
-		while(actual.darObjeto() !=null)
-		{
-			contador ++;
-			actual = actual.darSiguiente();
-		}
-		
-		return contador;
+		return tamano;
 	}
 
 

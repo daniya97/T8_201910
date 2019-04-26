@@ -18,7 +18,6 @@ public class GrafoNoDirigoConPesos<K,V> implements IGraph<K, V> {
 	
 	private static final int cte = 10;
 	
-	
 
 	
 	public GrafoNoDirigoConPesos() {
@@ -32,11 +31,6 @@ public class GrafoNoDirigoConPesos<K,V> implements IGraph<K, V> {
 	adj = new SepChainTH<>(cte);
 	}
 	
-	@Override
-	public Iterator<K> iterator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public int V() {
@@ -90,22 +84,23 @@ public class GrafoNoDirigoConPesos<K,V> implements IGraph<K, V> {
 	@Override
 	public V getInfoVertex(K idVertex) {
 		
-		int numNodo = tablaNodoANum.get(idVertex);
+		int respuesta = encontrarNumNodo(idVertex);
+		if(respuesta == -1) return null;
 		// TODO Auto-generated method stub
-		return informacionNodos.darObjeto(numNodo);
+		return informacionNodos.darObjeto(respuesta);
 	}
 
 	@Override
 	public void setInfoVertex(K idVertex, V infoVertex) {
 		// TODO Auto-generated method stub
-		int numNodo = tablaNodoANum.get(idVertex);
-		informacionNodos.cambiarEnPos(numNodo, infoVertex);
+		int numNodo = encontrarNumNodo(idVertex);
+		if(numNodo>=0) informacionNodos.cambiarEnPos(numNodo, infoVertex);
 	}
 
 	@Override
 	public infoArco getInfoArc(K idVertexIni, K idVertexFin) {
-		int nodoInicial = tablaNodoANum.get(idVertexIni); 
-		int nodoFinal = tablaNodoANum.get(idVertexFin); 
+		int nodoInicial = encontrarNumNodo(idVertexIni); 
+		int nodoFinal =  encontrarNumNodo(idVertexFin); 
 		infoArco respuesta = null;
 		LinkedList<Arco> aux = adj.get(nodoInicial);
 		
@@ -140,7 +135,24 @@ public class GrafoNoDirigoConPesos<K,V> implements IGraph<K, V> {
 
 	@Override
 	public Iterator<K> adj(K idVertex) {
-		
+	
+		if(encontrarNumNodo(idVertex)==-1){
+			return new Iterator<K>() {
+				@Override
+				public boolean hasNext() {
+					return false;
+				}
+
+				@Override
+				public K next() {
+					return null;
+				}
+			};	
+			
+			
+			
+			
+		}
 		return new Iterator<K>() {
 
 			int numNodo = tablaNodoANum.get(idVertex);
@@ -168,4 +180,25 @@ public class GrafoNoDirigoConPesos<K,V> implements IGraph<K, V> {
 	}
 
 
+
+	//Métodos Tablas de Transformación
+	
+	public int encontrarNumNodo(K idVertex){
+		//CONVENCIÓN -> -1 es por que no existe
+		if(tablaNodoANum.get(idVertex) == null) return -1;
+		return tablaNodoANum.get(idVertex);
+	}
+	
+	
+	public K encontrarNodo(int numNodo){
+		return tablaNumANodo.darObjeto(numNodo);
+	}
+	
+
+
+	
+	
+	
+	
+	
 }

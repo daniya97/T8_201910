@@ -2,7 +2,7 @@ package model.data_structures;
 
 import java.util.Iterator;
 
-public interface IGraph<K,V> extends Iterable<K>{
+public interface IGraph<K,V>{
 	
 	
 	/**
@@ -55,6 +55,9 @@ public interface IGraph<K,V> extends Iterable<K>{
 	 */
 	Iterator<K> adj(K idVertex);
 	
+	public int encontrarNumNodo(K idVertex);
+	
+	public K encontrarNodo(int numNodo);
 	
 
 }

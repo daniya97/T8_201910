@@ -50,7 +50,7 @@ public class MovingViolationsManagerView
 	}
 	
 	public void printMapa() {
-		//TODO
+		System.out.println("Archivo creado");
 	}
 
 	public void printReq3(File htmlMapa) {

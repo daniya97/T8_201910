@@ -95,7 +95,7 @@ public class GrafoNDPesos<K,V> implements IGraph<K, V> {
 	}
 
 	@Override
-	public infoArco getInfoArc(K idVertexIni, K idVertexFin) {
+	public Arco getInfoArc(K idVertexIni, K idVertexFin) {
 		int nodoInicial = encontrarNumNodo(idVertexIni); 
 		int nodoFinal =  encontrarNumNodo(idVertexFin); 
 		infoArco respuesta = null;
@@ -104,7 +104,7 @@ public class GrafoNDPesos<K,V> implements IGraph<K, V> {
 		if(aux==null) return null;
 		for(Arco e: aux){
 			if(e.other(nodoInicial)==nodoFinal){
-				return e.darInformacion();
+				return e;//.darInformacion();
 			}
 		}
 		
@@ -176,7 +176,9 @@ public class GrafoNDPesos<K,V> implements IGraph<K, V> {
 		// TODO Auto-generated method stub
 	}
 
-
+	public Iterator<K> iterator(){
+		return tablaNumANodo.iterator();
+	}
 
 	//M�todos Tablas de Transformaci�n
 	

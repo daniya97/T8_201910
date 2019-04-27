@@ -2,56 +2,56 @@ package model.data_structures;
 
 import java.util.Iterator;
 
-public interface IGraph<K,V>{
+public interface IGraph<K,V> extends Iterable<K> {
 	
 	
 	/**
-	 * Retorna el número de vertices en el grafo
+	 * Retorna el nï¿½mero de vertices en el grafo
 	 * @return num vertices
 	 */
 	int V();
 	
 	/**
-	 * Retorna el número de arcos en el grafo
+	 * Retorna el nï¿½mero de arcos en el grafo
 	 * @return num arcos
 	 */
 	int E();
 	
 	/**
-	 * Adiciona un vértice con un ID único. La información está en infovertex
+	 * Adiciona un vï¿½rtice con un ID ï¿½nico. La informaciï¿½n estï¿½ en infovertex
 	 */
 	void addVertex(K idVertex, V infoVertex);
 	
 	
 	/**
-	 * Adiciona un arco no dirigido entre iD vertexIni y idVertexFin con un ID único. La información está en infoArc
+	 * Adiciona un arco no dirigido entre iD vertexIni y idVertexFin con un ID ï¿½nico. La informaciï¿½n estï¿½ en infoArc
 	 */
 	void addEdge(K idVertexIni, K idVertexFin, infoArco infoArc);
 	
 	
 	/**
-	 * Obtener la información de un vértice
+	 * Obtener la informaciï¿½n de un vï¿½rtice
 	 */
 	V getInfoVertex(K idVertex);
 	
 	
 	/**
-	 * Modificar la información del vértice idVertex
+	 * Modificar la informaciï¿½n del vï¿½rtice idVertex
 	 */
 	void setInfoVertex(K idVertex, V infoVertex);
 	
 	/**
-	 * Obtiene la información acerca de un arco
+	 * Obtiene la informaciï¿½n acerca de un arco
 	 */
-	infoArco getInfoArc(K idVertexIni, K idVertexFin);
+	Arco getInfoArc(K idVertexIni, K idVertexFin);
 	
 	/**
-	 * Modificar la información del arco eentre los vértices idVertexIni e idVertexFin
+	 * Modificar la informaciï¿½n del arco eentre los vï¿½rtices idVertexIni e idVertexFin
 	 */
 	void setInfoArc(K idVertexIni, K idVertexFin, infoArco infoArc);
 	
 	/**
-	 * Retorna los identificadores de los vértices adyacentes a idVertex
+	 * Retorna los identificadores de los vï¿½rtices adyacentes a idVertex
 	 */
 	Iterator<K> adj(K idVertex);
 	

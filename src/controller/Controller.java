@@ -89,7 +89,7 @@ public class Controller {
 					break;
 
 				case 3:
-					view.printMessage("TODO");
+					view.printMessage("Nombre del archivo a crear: ");
 					String nombreHTML = sc.next();
 					File htmlMapa = model.crearMapa(nombreHTML);
 					view.printReq3(htmlMapa);

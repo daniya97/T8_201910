@@ -25,6 +25,7 @@ public class LectorXML extends DefaultHandler {
 	IQueue<BigInteger> wayVertexKeys = null;
 	int wayId;
 	
+	boolean otroNdAfter = false; // Booleano que verifica que luego del tag highway no se encuentran nodos
 	
 	public LectorXML() { }
 	
@@ -50,36 +51,39 @@ public class LectorXML extends DefaultHandler {
 			insideWay = true;
 			wayVertexKeys = new Queue<>(); 
 			wayId = Integer.parseInt(atts.getValue("id"));
+			
+			otroNdAfter = false;
 		}
 		
 		if (tag.equals("nd") && insideWay) {
 			wayVertexKeys.enqueue(new BigInteger(atts.getValue("ref"))); //BigInt
+			
+			if (otroNdAfter) System.out.println("Se encontro un nd luego del tag highway!!!!!!");
 		}
 		
 		if (tag.equals("tag") && insideWay && atts.getValue("k").equals("highway")) {
 			BigInteger anteriorK = null;
-			LatLonCoords coordsAnt = new LatLonCoords(-1, -1);
+			LatLonCoords coordsPre = new LatLonCoords(-1, -1);
+			
 			LatLonCoords coordsAct;
 			
 			for (BigInteger vertexK : wayVertexKeys) {
 				if (anteriorK == null) {
 					anteriorK = vertexK; 
-					coordsAnt = new LatLonCoords(verticesPosibles.get(anteriorK).getLat(),
-							verticesPosibles.get(anteriorK).getLon());
+					coordsPre = verticesPosibles.get(anteriorK);
 					
 					// Agregar el primer vertice si no está ya en el grafo
-					if (grafo.getInfoVertex(vertexK) == null) grafo.addVertex(anteriorK, coordsAnt);
+					if (grafo.getInfoVertex(anteriorK) == null) grafo.addVertex(anteriorK, coordsPre);
 					continue;
 				}
 				
-				coordsAct = new LatLonCoords(verticesPosibles.get(vertexK).getLat(),
-						 					 verticesPosibles.get(vertexK).getLon());
+				coordsAct = verticesPosibles.get(vertexK);
 				
-				// Agregar vertice actual si no está ya enel grafo
-				if (grafo.getInfoVertex(vertexK) == null) grafo.addVertex(vertexK, coordsAnt);
+				// Agregar vertice actual si no está ya en el grafo
+				if (grafo.getInfoVertex(vertexK) == null) grafo.addVertex(vertexK, coordsAct);
 				
 				// Agregar arco entre ellos
-				grafo.addEdge(anteriorK, vertexK, new infoArco(wayId, coordsAnt.haversineD(coordsAct)));
+				grafo.addEdge(anteriorK, vertexK, new infoArco(wayId, coordsPre.haversineD(coordsAct)));
 			}
 		}
 	}

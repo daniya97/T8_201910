@@ -11,6 +11,8 @@
     <tag k="curve_geometry" v="yes"/>
   </node>
 
+  <node id="000000" lat="38.9097843" lon="-77.0288552" version="1" timestamp="2011-07-17T22:22:20Z" changeset="8753182" uid="230350" user="westendguy"/>
+
   <node id="1364961110" lat="38.9097843" lon="-77.0288552" version="1" timestamp="2011-07-17T22:22:20Z" changeset="8753182" uid="230350" user="westendguy"/>
  
 

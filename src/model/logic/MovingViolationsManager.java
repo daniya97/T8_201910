@@ -13,12 +13,16 @@ import javax.xml.parsers.*;
 import org.xml.sax.*;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import model.data_structures.Arco;
+import model.data_structures.ArregloDinamico;
 import model.data_structures.IGraph;
 import model.data_structures.ITablaHash;
 import model.data_structures.LinProbTH;
+import model.data_structures.LinkedList;
 import model.data_structures.infoArco;
+import model.vo.esquemaJSON;
 
 public class MovingViolationsManager {
 
@@ -38,6 +42,7 @@ public class MovingViolationsManager {
 	 */
 	public MovingViolationsManager()
 	{
+		
 
 	}
 
@@ -62,23 +67,53 @@ public class MovingViolationsManager {
 	public boolean guardarEnJson(String nombreJsonC) {
 		
 		
-		Gson gson = new Gson();
-		infoArco<Integer> nuevo = new infoArco<Integer>(1, 2, 0, 1);
-		infoArco<Integer> nuevo2 = new infoArco<Integer>(2, 3, 0, 2);
+		esquemaJSON<BigInteger> auxiliar;
+		BigInteger id;
+		esquemaJSON<BigInteger>[] lista = new esquemaJSON[grafoIntersecciones.V()];
+		LinkedList<Arco> aux;
+		BigInteger[] lista2;
+		double lat;
+		double lon;
+		int contador = 0;
+
+
+		for (int i = 0; i < lista.length; i++) {
+			id = grafoIntersecciones.encontrarNodo(i);
+			aux = grafoIntersecciones.darRepresentacion().get(i);
+			
+			lista2 = new BigInteger[aux.darTamanoLista()];
+			
+			contador = 0;
+			for(Arco s: aux){
+				lista2[contador] = grafoIntersecciones.encontrarNodo(s.other(i));
+				contador++;
+			}
+			
+			lat = grafoIntersecciones.getInfoVertex(id).getLat();
+			lon = grafoIntersecciones.getInfoVertex(id).getLon();
+			auxiliar = new esquemaJSON<BigInteger>(id, lista2, lat, lon);
+			lista[i] = auxiliar;
+		}
 		
 		
-		Arco nuevoFinal = new Arco(0, 1, nuevo);
-		Arco nuevoFinal2 =  new Arco(0,2,nuevo2);
 		
-		Arco[] s = {nuevoFinal, nuevoFinal2};
-		
-		
-		String ss = gson.toJson(s);
+
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String ss = gson.toJson(lista);
 		System.out.println(ss);
 		
 		
+		try {
+			FileWriter file = new FileWriter("."+File.separator+"data"+File.separator+nombreJsonC+".json");
+			file.write(ss);
+			file.close();
+			return true;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			return false;
+		}
+		
 		// TODO Auto-generated method stub
-		return false;
 	}
 
 

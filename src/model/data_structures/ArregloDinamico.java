@@ -11,11 +11,11 @@ public class ArregloDinamico<T> implements IArregloDinamico<T> {
 	/**
 	 * Capacidad maxima del arreglo
 	 */
-	private int tamanoMax;
+	private transient int tamanoMax;
 	/**
 	 * Numero de elementos en el arreglo (de forma compacta desde la posicion 0)
 	 */
-	private int tamanoAct;
+	private transient int tamanoAct;
     /**
      * Arreglo de elementos de tamaNo maximo
      */

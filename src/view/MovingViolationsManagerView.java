@@ -40,6 +40,11 @@ public class MovingViolationsManagerView
 	}
 
 	public void printReq1(boolean esSatisfactorio) {
+		if(esSatisfactorio){
+			System.out.println("Se generó correctame el archivo JSON con la información del grafo");
+		}else{
+			System.out.println("Ocurrió un error generando el JSON");
+		}
 		// TODO Auto-generated method stub
 		
 	}

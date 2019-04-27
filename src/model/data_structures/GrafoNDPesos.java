@@ -3,6 +3,7 @@ package model.data_structures;
 
 import java.util.Iterator;
 
+import model.logic.LatLonCoords;
 import model.vo.esquemaJSON;
 
 
@@ -15,7 +16,7 @@ public class GrafoNDPesos<K,V> implements IGraph<K, V> {
 	private IArregloDinamico<K> tablaNumANodo;
 	private ITablaHash<Integer, LinkedList<Arco>> adj;
 
-
+	
 	private static final int cte = 10;
 
 
@@ -201,38 +202,9 @@ public class GrafoNDPesos<K,V> implements IGraph<K, V> {
 		return tablaNumANodo.darObjeto(numNodo);
 	}
 
-
-
-	public esquemaJSON<K>[] infoJSON(){
-		
-		esquemaJSON auxiliar;
-		K id;
-		esquemaJSON<K>[] lista = new esquemaJSON[this.V];
-		LinkedList<Arco> aux;
-		K[] lista2;
-		int contador = 0;
-
-
-		for (int i = 0; i < lista.length; i++) {
-			id = encontrarNodo(i);
-			aux = adj.get(i);
-
-			if(aux !=null){
-				lista2 = (K[]) new Object[aux.darTamanoLista()];
-				contador = 0;
-				for(Arco s:aux){
-					lista2[contador] = encontrarNodo(s.other(i));
-					contador++;
-				}
-			}else{
-				lista2 = (K[]) new Object[0];
-			}
-
-			auxiliar = new esquemaJSON<K>(id, lista2);
-			lista[i] = auxiliar;
-		}
-
-		return lista;
+	
+	public ITablaHash<Integer, LinkedList<Arco>> darRepresentacion(){
+		return adj;
 	}
-
+	
 }

@@ -155,33 +155,6 @@ public class GrafoNDPeso extends TestCase {
 		
 	}
 	
-	
-	public void testJSON(){
-		setUpEscenario2();
-		esquemaJSON<String>[]info = grafo1.infoJSON();
-		
-//		for (int i = 0; i < info.length; i++) {
-//			System.out.println(info[i]);
-//		}
-//		
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String ss = gson.toJson(info);
-		System.out.println(ss);
-		
-		try {
-			FileWriter file = new FileWriter("."+File.separator+"data"+"Daniel.json");
-			file.write(ss);
-			file.close();
-			System.out.println("Entro");
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-	}
-	
-	
+
 
 }

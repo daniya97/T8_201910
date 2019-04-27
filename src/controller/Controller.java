@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import java.io.File;
 
+import model.logic.JavaAJSON;
 import model.logic.MovingViolationsManager;
 import view.MovingViolationsManagerView;
 
@@ -73,6 +74,7 @@ public class Controller {
 					break;
 					
 				case 1:
+					
 					view.printMessage("Nombre del JSON: ");
 					String nombreJsonC = sc.next();
 

@@ -1,8 +1,15 @@
 package model.data_structures;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Iterator;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import junit.framework.TestCase;
+import model.vo.esquemaJSON;
 
 public class GrafoNDPeso extends TestCase {
 	
@@ -12,18 +19,20 @@ public class GrafoNDPeso extends TestCase {
 	 * Atributos 
 	 */
 	private IGraph<String, String> grafo;
+	private GrafoNDPesos<String, String> grafo1;
 	
 	/*
 	 * Escenarios
 	 */
 	private void setUpEscenario0() {
 		grafo = new GrafoNDPesos<>();
-		grafo.addVertex("Daniel", "Ingenier�a Industrial");
-		grafo.addVertex("Sebasti�n", "Matem�ticas");
-		grafo.addVertex("Camilo", "Ingenier�a de Sistemas");
+		grafo = new GrafoNDPesos<>();
+		grafo.addVertex("Daniel", "Ingenieria Industrial");
+		grafo.addVertex("Sebastian", "Matematicas");
+		grafo.addVertex("Camilo", "Ingenieria de Sistemas");
 		
-		infoArco nuevoArco = new infoArco(1, 10);
-		grafo.addEdge("Daniel", "Sebasti�n",nuevoArco);
+		infoArco<String> nuevoArco = new infoArco<String>(1, 10, "Daniel", "Sebastian");
+		grafo.addEdge("Daniel", "Sebastian", nuevoArco);
 		
 	}
 
@@ -34,6 +43,17 @@ public class GrafoNDPeso extends TestCase {
 	}
 	
 	
+	private void setUpEscenario2() {
+		grafo1 = new GrafoNDPesos<>();
+		grafo1.addVertex("Daniel", "Ingenieria Industrial");
+		grafo1.addVertex("Sebastian", "Matematicas");
+		grafo1.addVertex("Camilo", "Ingenieria de Sistemas");
+		infoArco<String> nuevoArco = new infoArco<String>(1, 10, "Daniel", "Sebastian");
+		
+		grafo1.addEdge("Daniel", "Sebastian", nuevoArco);
+		
+	}
+	
 	
 	public void testEscenario0(){
 		
@@ -42,24 +62,24 @@ public class GrafoNDPeso extends TestCase {
 		//Funcionalidades B�sicas
 		assertTrue("Deber�a tener 3 V�rtices", grafo.V() == 3);
 		assertTrue("Deber�a tener 1 Arco", grafo.E()== 1);
-		assertTrue("No encontr� correctamente la informaci�n del v�rtice",grafo.getInfoVertex("Daniel").equals("Ingenier�a Industrial"));
+		assertTrue("No encontr� correctamente la informaci�n del v�rtice",grafo.getInfoVertex("Daniel").equals("Ingenieria Industrial"));
 		
 		//Transformaci�n a Int
 		assertTrue("Daniel tiene el n�mero 0", grafo.encontrarNumNodo("Daniel")==0);
-		assertTrue("Sebasti�n tiene el n�mero 1", grafo.encontrarNumNodo("Sebasti�n")==1);
+		assertTrue("Sebasti�n tiene el n�mero 1", grafo.encontrarNumNodo("Sebastian")==1);
 		assertTrue("Camilo tiene el n�mero 2", grafo.encontrarNumNodo("Camilo")==2);
 		
 		//Transformaci�n a K
 		assertTrue("El n�mero 0 tiene a Daniel", grafo.encontrarNodo(0).equals("Daniel"));
-		assertTrue("El n�mero 1 tiene a Sebasti�n", grafo.encontrarNodo(1).equals("Sebasti�n"));
+		assertTrue("El n�mero 1 tiene a Sebasti�n", grafo.encontrarNodo(1).equals("Sebastian"));
 		assertTrue("El n�mero 2 tiene a Camilo", grafo.encontrarNodo(2).equals("Camilo"));
 		
 		//Get Info y SetInfo
-		assertTrue("No encontr� la informaci�n correctamente", grafo.getInfoVertex("Daniel").equals("Ingenier�a Industrial"));
-		assertTrue("No encontr� la informaci�n correctamente", grafo.getInfoVertex("Sebasti�n").equals("Matem�ticas"));
-		assertTrue("No encontr� la informaci�n correctamente", grafo.getInfoVertex("Camilo").equals("Ingenier�a de Sistemas"));
-		assertTrue("No encontr� la informaci�n correctamente", grafo.getInfoArc("Daniel", "Sebasti�n").darIdArco() == 1);
-		assertTrue("No encontr� la informaci�n correctamente", grafo.getInfoArc("Sebasti�n", "Daniel").darPesoArco()== 10);
+		assertTrue("No encontr� la informaci�n correctamente", grafo.getInfoVertex("Daniel").equals("Ingenieria Industrial"));
+		assertTrue("No encontr� la informaci�n correctamente", grafo.getInfoVertex("Sebastian").equals("Matematicas"));
+		assertTrue("No encontr� la informaci�n correctamente", grafo.getInfoVertex("Camilo").equals("Ingenieria de Sistemas"));
+		assertTrue("No encontr� la informaci�n correctamente", grafo.getInfoArc("Daniel", "Sebastian").darIdArco() == 1);
+		assertTrue("No encontr� la informaci�n correctamente", grafo.getInfoArc("Sebastian", "Daniel").darPesoArco()== 10);
 
 		
 		//Daniel se cambia de carrera
@@ -68,11 +88,11 @@ public class GrafoNDPeso extends TestCase {
 		
 		
 		//Agregar V�rtices y Nodos
-		grafo.addVertex("Mar�a", "Geociencias");
+		grafo.addVertex("Maria", "Geociencias");
 		assertTrue("Deber�a tener 4 V�rtices", grafo.V() == 4);
-		infoArco nuevoArco = new infoArco(2, 40);
-		grafo.addEdge("Daniel", "Mar�a", nuevoArco);
-		assertTrue("No encontr� la informaci�n conrrectamente",grafo.getInfoArc("Mar�a", "Daniel").darIdArco() == 2);
+		infoArco<String> nuevoArco = new infoArco<String>(2, 20, "Daniel", "Maria");
+		grafo.addEdge("Daniel", "Maria", nuevoArco);
+		assertTrue("No encontr� la informaci�n conrrectamente",grafo.getInfoArc("Maria", "Daniel").darIdArco() == 2);
 		
 		
 		
@@ -82,7 +102,7 @@ public class GrafoNDPeso extends TestCase {
 		int contador = 0;
 		while(prueba.hasNext()){
 			actual = prueba.next();
-			assertTrue("No funciona el iterador", actual.equals("Mar�a")||actual.equals("Sebasti�n"));
+			assertTrue("No funciona el iterador", actual.equals("Maria")||actual.equals("Sebastian"));
 			contador++;
 		}
 		
@@ -132,6 +152,33 @@ public class GrafoNDPeso extends TestCase {
 		}
 		
 		assertTrue("El n�mero de nodos conectados con Daniel no es correcto", contador == 0);
+		
+	}
+	
+	
+	public void testJSON(){
+		setUpEscenario2();
+		esquemaJSON<String>[]info = grafo1.infoJSON();
+		
+//		for (int i = 0; i < info.length; i++) {
+//			System.out.println(info[i]);
+//		}
+//		
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String ss = gson.toJson(info);
+		System.out.println(ss);
+		
+		try {
+			FileWriter file = new FileWriter("."+File.separator+"data"+"Daniel.json");
+			file.write(ss);
+			file.close();
+			System.out.println("Entro");
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 	}
 	

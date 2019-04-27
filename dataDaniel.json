@@ -1,0 +1,18 @@
+[
+  {
+    "id": "Daniel",
+    "adj": [
+      "Sebastian"
+    ]
+  },
+  {
+    "id": "Sebastian",
+    "adj": [
+      "Daniel"
+    ]
+  },
+  {
+    "id": "Camilo",
+    "adj": []
+  }
+]

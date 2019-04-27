@@ -4,11 +4,15 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringReader;
 import java.math.BigInteger;
+import java.util.Arrays;
 import java.util.Iterator;
 
 import javax.xml.parsers.*;
 import org.xml.sax.*;
+
+import com.google.gson.Gson;
 
 import model.data_structures.Arco;
 import model.data_structures.IGraph;
@@ -56,6 +60,23 @@ public class MovingViolationsManager {
 
 
 	public boolean guardarEnJson(String nombreJsonC) {
+		
+		
+		Gson gson = new Gson();
+		infoArco<Integer> nuevo = new infoArco<Integer>(1, 2, 0, 1);
+		infoArco<Integer> nuevo2 = new infoArco<Integer>(2, 3, 0, 2);
+		
+		
+		Arco nuevoFinal = new Arco(0, 1, nuevo);
+		Arco nuevoFinal2 =  new Arco(0,2,nuevo2);
+		
+		Arco[] s = {nuevoFinal, nuevoFinal2};
+		
+		
+		String ss = gson.toJson(s);
+		System.out.println(ss);
+		
+		
 		// TODO Auto-generated method stub
 		return false;
 	}

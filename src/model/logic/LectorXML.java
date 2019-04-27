@@ -9,6 +9,8 @@ import org.xml.sax.helpers.DefaultHandler;
 import model.data_structures.GrafoNDPesos;
 import model.data_structures.IGraph;
 import model.data_structures.IQueue;
+import model.data_structures.ITablaHash;
+import model.data_structures.LinProbTH;
 import model.data_structures.Queue;
 import model.data_structures.infoArco;
 
@@ -17,6 +19,8 @@ public class LectorXML extends DefaultHandler {
 	 * Atributos
 	 */
 	private IGraph<BigInteger, LatLonCoords> grafo;
+	
+	private ITablaHash<BigInteger, LatLonCoords> verticesPosibles;
 	public boolean insideWay = false;
 	IQueue<BigInteger> wayVertexKeys = null;
 	int wayId;
@@ -29,6 +33,7 @@ public class LectorXML extends DefaultHandler {
 	 */
 	public void startDocument() throws SAXException {
 		grafo = new GrafoNDPesos<BigInteger, LatLonCoords>();
+		verticesPosibles = new LinProbTH<BigInteger, LatLonCoords>(11);
 	}
 	
 	public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws SAXException {
@@ -37,7 +42,8 @@ public class LectorXML extends DefaultHandler {
 		if(tag.equals("node")) {
 			//System.out.println("Node");
 			LatLonCoords info = new LatLonCoords(Double.parseDouble(atts.getValue("lat")), Double.parseDouble(atts.getValue("lon")));
-			grafo.addVertex(new BigInteger(atts.getValue("id")), info); // BigIng
+			//grafo.addVertex(new BigInteger(atts.getValue("id")), info); // BigIng
+			verticesPosibles.put(new BigInteger(atts.getValue("id")), info);
 		}
 		
 		if (tag.equals("way")) {	
@@ -58,15 +64,21 @@ public class LectorXML extends DefaultHandler {
 			for (BigInteger vertexK : wayVertexKeys) {
 				if (anteriorK == null) {
 					anteriorK = vertexK; 
-					coordsAnt = new LatLonCoords(grafo.getInfoVertex(anteriorK).getLat(),
-							 grafo.getInfoVertex(anteriorK).getLon());
+					coordsAnt = new LatLonCoords(verticesPosibles.get(anteriorK).getLat(),
+							verticesPosibles.get(anteriorK).getLon());
 					
+					// Agregar el primer vertice si no está ya en el grafo
+					if (grafo.getInfoVertex(vertexK) == null) grafo.addVertex(anteriorK, coordsAnt);
 					continue;
 				}
 				
-				coordsAct = new LatLonCoords(grafo.getInfoVertex(vertexK).getLat(),
-						 					 grafo.getInfoVertex(vertexK).getLon());
+				coordsAct = new LatLonCoords(verticesPosibles.get(vertexK).getLat(),
+						 					 verticesPosibles.get(vertexK).getLon());
 				
+				// Agregar vertice actual si no está ya enel grafo
+				if (grafo.getInfoVertex(vertexK) == null) grafo.addVertex(vertexK, coordsAnt);
+				
+				// Agregar arco entre ellos
 				grafo.addEdge(anteriorK, vertexK, new infoArco(wayId, coordsAnt.haversineD(coordsAct)));
 			}
 		}

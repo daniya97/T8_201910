@@ -85,6 +85,8 @@ public class LectorXML extends DefaultHandler {
 				// Agregar arco entre ellos
 				grafo.addEdge(anteriorK, vertexK, new infoArco(wayId, coordsPre.haversineD(coordsAct)));
 			}
+			
+			otroNdAfter = true;
 		}
 	}
 	

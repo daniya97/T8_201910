@@ -50,7 +50,7 @@ public class GrafoNDPesos<K,V> implements IGraph<K, V> {
 	}
 
 	@Override
-	public void addEdge(K idVertexIni, K idVertexFin, infoArco infoArc) {
+	public void addEdge(K idVertexIni, K idVertexFin, infoArco<K> infoArc) {
 		// TODO Auto-generated method stub
 		int nodoInicial = tablaNodoANum.get(idVertexIni); 
 		int nodoFinal = tablaNodoANum.get(idVertexFin); 
@@ -95,16 +95,16 @@ public class GrafoNDPesos<K,V> implements IGraph<K, V> {
 	}
 
 	@Override
-	public Arco getInfoArc(K idVertexIni, K idVertexFin) {
+	public infoArco<K> getInfoArc(K idVertexIni, K idVertexFin) {
 		int nodoInicial = encontrarNumNodo(idVertexIni); 
 		int nodoFinal =  encontrarNumNodo(idVertexFin); 
-		infoArco respuesta = null;
+		infoArco<K> respuesta = null;
 		LinkedList<Arco> aux = adj.get(nodoInicial);
 		
 		if(aux==null) return null;
 		for(Arco e: aux){
 			if(e.other(nodoInicial)==nodoFinal){
-				return e;//.darInformacion();
+				return e.darInformacion();//.darInformacion();
 			}
 		}
 		
@@ -113,7 +113,7 @@ public class GrafoNDPesos<K,V> implements IGraph<K, V> {
 	}
 
 	@Override
-	public void setInfoArc(K idVertexIni, K idVertexFin, infoArco infoArc) {
+	public void setInfoArc(K idVertexIni, K idVertexFin, infoArco<K> infoArc) {
 		
 		int nodoInicial = tablaNodoANum.get(idVertexIni); 
 		int nodoFinal = tablaNodoANum.get(idVertexFin); 

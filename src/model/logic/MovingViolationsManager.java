@@ -101,40 +101,41 @@ public class MovingViolationsManager {
 	    		"var extremos = [[38.9097115, -77.0289048],[38.9097843, -77.0288552]];\n" + 
 	    		"map.fitBounds(extremos);\n");
 	    
-	    // Agregar edges del grafo como puntos de un poligono
-	    writer.write("var line_points = [");
-	    
-	    ITablaHash<Double, Double> edgesAgregados = new LinProbTH<>(11); // Para agregar solo una vez cada edge
+	    // Agregar edges del grafo como lineas en el mapa	    
+	    ITablaHash<BigInteger[], Boolean> edgesAgregados = new LinProbTH<>(11); // Para agregar solo una vez cada edge
 	    
 	    Iterable<BigInteger> iterableAdj;
-	    LatLonCoords coordsAct;
-	    boolean primerEl = true;
+	    BigInteger id1; LatLonCoords coords1;
+	    BigInteger id2; LatLonCoords coords2;
+	    infoArco<BigInteger> arcoAct;
+	    
+	    //boolean primerEl = true;
 	    for (BigInteger id : grafoIntersecciones) {
-	    	coordsAct = grafoIntersecciones.getInfoVertex(id);
-	    	if (!primerEl) {writer.write(", ");}
-	    	
-	    	System.out.println("[" + coordsAct.getLat() + ", "+ coordsAct.getLon() + "]");
-	    	writer.write("[" + coordsAct.getLat() + ", "+ coordsAct.getLon() + "]");
-	    	
-	    	primerEl = false;
-			/*
-			 * iterableAdj = new Iterable<BigInteger>() {
-			 * 
-			 * @Override public Iterator<BigInteger> iterator() { return
-			 * grafoIntersecciones.adj(id); } };
-			 * 
-			 * for (BigInteger verAdj : iterableAdj) { arcoAct =
-			 * grafoIntersecciones.getInfoArc(id, verAdj);
-			 * 
-			 * arcoAct.either(), arcoAct.either() }
-			 */
+			
+			iterableAdj = new Iterable<BigInteger>() {		
+				@Override public Iterator<BigInteger> iterator() { 
+				return grafoIntersecciones.adj(id); } };
+
+			for (BigInteger verAdj : iterableAdj) {
+				arcoAct = grafoIntersecciones.getInfoArc(id, verAdj);
+				
+				id1 = arcoAct.darKEither();
+				coords1 = grafoIntersecciones.getInfoVertex(id1);
+				id2 = arcoAct.darKOther(id1);
+				coords2 = grafoIntersecciones.getInfoVertex(id2);
+				
+				if (edgesAgregados.get(new BigInteger[] {id1, id2}) != null) continue;
+				else edgesAgregados.put(new BigInteger[] {id1, id2}, true);
+				
+				writer.write("var line_points = [[" + coords1.getLat() + ", " + coords1.getLon() + "] "
+											 + ",[" + coords2.getLat() + ", " + coords2.getLon() + "]];\n");
+				writer.write("var polyline_options = {color: '#ff2fc6'};\n" + 
+			    		"L.polyline(line_points, polyline_options).addTo(map);\n\n");
+			}
 	    }
-	    writer.write("];");
 	    
 	    // Final
-	    writer.write("\nvar polyline_options = {color: '#ff2fc6'};\n" + 
-	    		"\n" + 
-	    		"L.polyline(line_points, polyline_options).addTo(map);\n" + 
+	    writer.write(
 	    		"L.marker( [41.88949181977,-87.6882193648], { title: \"Nodo de salida\"} ).addTo(map);\n" + 
 	    		"L.marker( [41.768726,-87.664069], { title: \"Nodo de llegada\"} ).addTo(map);\n" + 
 	    		"</script>\n" + 

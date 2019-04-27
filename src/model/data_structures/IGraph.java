@@ -26,7 +26,7 @@ public interface IGraph<K,V> extends Iterable<K> {
 	/**
 	 * Adiciona un arco no dirigido entre iD vertexIni y idVertexFin con un ID �nico. La informaci�n est� en infoArc
 	 */
-	void addEdge(K idVertexIni, K idVertexFin, infoArco infoArc);
+	void addEdge(K idVertexIni, K idVertexFin, infoArco<K> infoArc);
 	
 	
 	/**
@@ -43,12 +43,12 @@ public interface IGraph<K,V> extends Iterable<K> {
 	/**
 	 * Obtiene la informaci�n acerca de un arco
 	 */
-	Arco getInfoArc(K idVertexIni, K idVertexFin);
+	infoArco<K> getInfoArc(K idVertexIni, K idVertexFin);
 	
 	/**
 	 * Modificar la informaci�n del arco eentre los v�rtices idVertexIni e idVertexFin
 	 */
-	void setInfoArc(K idVertexIni, K idVertexFin, infoArco infoArc);
+	void setInfoArc(K idVertexIni, K idVertexFin, infoArco<K> infoArc);
 	
 	/**
 	 * Retorna los identificadores de los v�rtices adyacentes a idVertex

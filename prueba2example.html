@@ -19,20 +19,22 @@ L.mapbox.accessToken = 'pk.eyJ1IjoianVhbnBhYmxvY29ycmVhcHVlcnRhIiwiYSI6ImNqb2Fjc
 var map = L.mapbox.map('map', 'mapbox.streets').setView([38.9097115, -77.0289048], 17);
 var extremos = [[38.9097115, -77.0289048],[38.9097843, -77.0288552]];
 map.fitBounds(extremos);
-var line_points = [[38.9097115, -77.0289048] ,[38.9097843, -77.0288552]];
-var polyline_options = {color: '#ff2fc6'};
+var line_points;
+var polyline_options;
+ line_points = [[38.9097115, -77.0289048] ,[38.9097843, -77.0288552]];
+ polyline_options = {color: '#ff2fc6'};
 L.polyline(line_points, polyline_options).addTo(map);
 
-var line_points = [[38.9097115, -77.0289048] ,[38.9097457, -77.0288767]];
-var polyline_options = {color: '#ff2fc6'};
+ line_points = [[38.9097115, -77.0289048] ,[38.9097457, -77.0288767]];
+ polyline_options = {color: '#ff2fc6'};
 L.polyline(line_points, polyline_options).addTo(map);
 
-var line_points = [[38.9097115, -77.0289048] ,[38.9097457, -77.0288767]];
-var polyline_options = {color: '#ff2fc6'};
+ line_points = [[38.9097115, -77.0289048] ,[38.9097457, -77.0288767]];
+ polyline_options = {color: '#ff2fc6'};
 L.polyline(line_points, polyline_options).addTo(map);
 
-var line_points = [[38.9097115, -77.0289048] ,[38.9097843, -77.0288552]];
-var polyline_options = {color: '#ff2fc6'};
+ line_points = [[38.9097115, -77.0289048] ,[38.9097843, -77.0288552]];
+ polyline_options = {color: '#ff2fc6'};
 L.polyline(line_points, polyline_options).addTo(map);
 
 L.marker( [41.88949181977,-87.6882193648], { title: "Nodo de salida"} ).addTo(map);

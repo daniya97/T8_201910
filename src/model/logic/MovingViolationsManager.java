@@ -117,8 +117,17 @@ public class MovingViolationsManager {
 	}
 
 
-	public boolean cargarDeJson(String nombreJsonG) {
+	public boolean cargarDeJson(String nombreJsonG) throws IOException {
 		// TODO Auto-generated method stub
+		VertexSummary vertice;
+		Gson gson = new Gson();
+		JReader reader = new JReader(new File("data/"+nombreJsonG));
+		
+		// Lee linea a linea el archivo para crear las infracciones y cargarlas a la lista
+		for (String json : reader) {
+			// Crear infraccion dado el json actual
+			vertice = gson.fromJson(json, VertexSummary.class);
+		}
 		return false;
 	}
 	

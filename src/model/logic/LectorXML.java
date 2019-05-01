@@ -82,8 +82,10 @@ public class LectorXML extends DefaultHandler {
 				// Agregar vertice actual si no está ya en el grafo
 				if (grafo.getInfoVertex(vertexK) == null) grafo.addVertex(vertexK, coordsAct);
 				
-				// Agregar arco entre ellos
-				grafo.addEdge(anteriorK, vertexK, new infoArco<BigInteger>(wayId, coordsPre.haversineD(coordsAct), anteriorK, vertexK));
+				// Agregar arco entre ellos si no existe
+				if (grafo.getInfoArc(anteriorK, vertexK) == null) {
+					grafo.addEdge(anteriorK, vertexK, new infoArco<BigInteger>(wayId, coordsPre.haversineD(coordsAct), anteriorK, vertexK));
+				}
 			}
 			
 			otroNdAfter = true;

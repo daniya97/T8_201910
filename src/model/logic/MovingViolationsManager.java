@@ -120,11 +120,11 @@ public class MovingViolationsManager {
 
 	public int[] cargarDeJson(String nombreJsonG) throws IOException {
 		// TODO Auto-generated method stub
-		grafoIntersecciones = new GrafoNDPesos<>();
 		VertexSummary verticeAct;
 		
 		Gson gson = new Gson();
 		JReader reader = new JReader(new File("data/"+nombreJsonG));
+		grafoIntersecciones = new GrafoNDPesos<>();
 		
 		int nVertices = 0;
 		// Lee linea a linea el archivo para crear las infracciones y cargarlas a la lista

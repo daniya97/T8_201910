@@ -41,16 +41,17 @@ public class MovingViolationsManagerView
 
 	public void printReq1(boolean esSatisfactorio) {
 		if(esSatisfactorio){
-			System.out.println("Se generó correctame el archivo JSON con la información del grafo");
+			System.out.println("Se generï¿½ correctame el archivo JSON con la informaciï¿½n del grafo");
 		}else{
-			System.out.println("Ocurrió un error generando el JSON");
+			System.out.println("Ocurriï¿½ un error generando el JSON");
 		}
 		// TODO Auto-generated method stub
 		
 	}
 	
-	public void printReq2(boolean esSatisfactorio) {
-		// TODO Auto-generated method stub
+	public void printReq2(int[] infoCarga) {
+		System.out.println("Numero de Vertices: " + infoCarga[0]);
+		System.out.println("Numero de Arcos: " + infoCarga[1]);
 		
 	}
 	

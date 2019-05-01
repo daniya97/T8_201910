@@ -1,24 +1,26 @@
 package model.logic;
 
+import java.math.BigInteger;
+
 public class VertexSummary {
-	private Long id;
-	private Double lat;
-	private Double lon;
-	private Long[] adj;
+	private BigInteger id;
+	private double lat;
+	private double lon;
+	private BigInteger[] adj;
 	
-	public Long getId() {
+	public BigInteger getId() {
 		return id;
 	}
 	
-	public Long[] getAdj() {
+	public BigInteger[] getAdj() {
 		return adj;
 	}
 	
-	public Double getLat() {
+	public double getLat() {
 		return lat;
 	}
 	
-	public Double getLon() {
+	public double getLon() {
 		return lon;
 	}
 }

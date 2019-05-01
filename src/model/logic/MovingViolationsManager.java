@@ -17,6 +17,7 @@ import com.google.gson.GsonBuilder;
 
 import model.data_structures.Arco;
 import model.data_structures.ArregloDinamico;
+import model.data_structures.GrafoNDPesos;
 import model.data_structures.IGraph;
 import model.data_structures.ITablaHash;
 import model.data_structures.LinProbTH;
@@ -117,18 +118,46 @@ public class MovingViolationsManager {
 	}
 
 
-	public boolean cargarDeJson(String nombreJsonG) throws IOException {
+	public int[] cargarDeJson(String nombreJsonG) throws IOException {
 		// TODO Auto-generated method stub
-		VertexSummary vertice;
+		grafoIntersecciones = new GrafoNDPesos<>();
+		VertexSummary verticeAct;
+		
 		Gson gson = new Gson();
 		JReader reader = new JReader(new File("data/"+nombreJsonG));
 		
+		int nVertices = 0;
 		// Lee linea a linea el archivo para crear las infracciones y cargarlas a la lista
 		for (String json : reader) {
-			// Crear infraccion dado el json actual
-			vertice = gson.fromJson(json, VertexSummary.class);
+			verticeAct = gson.fromJson(json, VertexSummary.class);
+			
+			/*
+			  System.out.println(verticeAct.getId()); for (int i = 0; i <
+			  verticeAct.getAdj().length; i++) { System.out.println("Adj " + i + ": " +
+			  verticeAct.getAdj()[i]); 
+			  }
+			 */
+			if (grafoIntersecciones.getInfoVertex(verticeAct.getId()) == null) {
+				grafoIntersecciones.addVertex(verticeAct.getId(), new LatLonCoords(verticeAct.getLat(), verticeAct.getLon()));
+				nVertices += 1;
+			}
 		}
-		return false;
+		
+		reader = new JReader(new File("data/"+nombreJsonG));
+		int nArcos = 0;
+		for (String json : reader) {
+			verticeAct = gson.fromJson(json, VertexSummary.class);
+			
+			for (BigInteger verticeArcId : verticeAct.getAdj()) {
+				if (grafoIntersecciones.getInfoArc(verticeAct.getId(), verticeArcId) == null) {
+					grafoIntersecciones.addEdge(verticeAct.getId(), verticeArcId, 
+						new infoArco<BigInteger>(-1, grafoIntersecciones.getInfoVertex(verticeArcId).haversineD(grafoIntersecciones.getInfoVertex(verticeAct.getId())), verticeAct.getId(), verticeArcId));
+					nArcos += 1;
+				}
+			}
+		}
+		
+		return new int[] {nVertices, nArcos};
 	}
 	
 	public File crearMapa(String nombreHTML) throws IOException{

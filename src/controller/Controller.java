@@ -86,8 +86,8 @@ public class Controller {
 					view.printMessage("Nombre del JSON: ");
 					String nombreJsonG = sc.next();
 
-					esSatisfactorio = model.cargarDeJson(nombreJsonG);
-					view.printReq2(esSatisfactorio);
+					int[] infoCarga = model.cargarDeJson(nombreJsonG);
+					view.printReq2(infoCarga);
 					break;
 
 				case 3:

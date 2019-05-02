@@ -6,7 +6,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 
 import model.data_structures.GrafoNDPeso;
-import model.data_structures.infoArco;
 
 
 public class JavaAJSON {

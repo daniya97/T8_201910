@@ -12,7 +12,6 @@ import model.data_structures.IQueue;
 import model.data_structures.ITablaHash;
 import model.data_structures.LinProbTH;
 import model.data_structures.Queue;
-import model.data_structures.infoArco;
 
 public class LectorXML extends DefaultHandler {
 	/*

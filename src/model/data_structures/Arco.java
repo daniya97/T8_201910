@@ -1,5 +1,7 @@
 package model.data_structures;
 
+import model.logic.infoArco;
+
 public class Arco implements Comparable<Arco> {
 
 	private int v;

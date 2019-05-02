@@ -9,7 +9,7 @@ import model.data_structures.IStack;
 import model.data_structures.ITablaSimOrd;
 import model.data_structures.MaxHeapCP;
 
-public class MovingViolationsManagerView 
+public class ManagerView 
 {
 	/**
 	 * Constante con el numero maximo de datos maximo que se deben imprimir en consola

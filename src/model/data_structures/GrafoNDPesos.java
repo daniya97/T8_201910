@@ -4,6 +4,7 @@ package model.data_structures;
 import java.util.Iterator;
 
 import model.logic.LatLonCoords;
+import model.logic.infoArco;
 import model.vo.esquemaJSON;
 
 

@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import junit.framework.TestCase;
+import model.logic.infoArco;
 import model.vo.esquemaJSON;
 
 public class GrafoNDPeso extends TestCase {

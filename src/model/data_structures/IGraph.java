@@ -2,6 +2,8 @@ package model.data_structures;
 
 import java.util.Iterator;
 
+import model.logic.infoArco;
+
 public interface IGraph<K,V> extends Iterable<K> {
 	
 	

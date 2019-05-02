@@ -8,8 +8,8 @@ import java.util.Scanner;
 import java.io.File;
 
 import model.logic.JavaAJSON;
-import model.logic.MovingViolationsManager;
-import view.MovingViolationsManagerView;
+import model.logic.Manager;
+import view.ManagerView;
 
 public class Controller {
 	/*
@@ -18,17 +18,17 @@ public class Controller {
 	/**
 	 * Objeto de la Vista
 	 */
-	private MovingViolationsManagerView view;
+	private ManagerView view;
 
-	private MovingViolationsManager model;
+	private Manager model;
 
 	/*
 	 * Constructor
 	 */
 	public Controller()
 	{
-		view = new MovingViolationsManagerView();
-		model = new MovingViolationsManager();
+		view = new ManagerView();
+		model = new Manager();
 	}
 
 	/*
@@ -67,7 +67,7 @@ public class Controller {
 				switch(option)
 				{
 				case 0:
-					view.printMessage("Ingrese el nombre del archivo (guardado en 'data'):");
+					view.printMessage("Ingrese el nombre del archivo (guardado en 'data') (OJO: poner .xml):");
 					String nombreXML = sc.next();
 					Integer[] resultados0 = model.loadXML("./data/"+nombreXML);
 					view.printResumenCarga(resultados0);
@@ -75,7 +75,7 @@ public class Controller {
 					
 				case 1:
 					
-					view.printMessage("Nombre del JSON: ");
+					view.printMessage("Nombre del JSON (sin el .json): ");
 					String nombreJsonC = sc.next();
 
 					esSatisfactorio = model.guardarEnJson(nombreJsonC);
@@ -83,7 +83,7 @@ public class Controller {
 					break;
 
 				case 2:
-					view.printMessage("Nombre del JSON: ");
+					view.printMessage("Nombre del JSON: (con el .json)");
 					String nombreJsonG = sc.next();
 
 					int[] infoCarga = model.cargarDeJson(nombreJsonG);

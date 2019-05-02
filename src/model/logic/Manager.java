@@ -22,10 +22,9 @@ import model.data_structures.IGraph;
 import model.data_structures.ITablaHash;
 import model.data_structures.LinProbTH;
 import model.data_structures.LinkedList;
-import model.data_structures.infoArco;
 import model.vo.esquemaJSON;
 
-public class MovingViolationsManager {
+public class Manager {
 
 	/**
 	 * Lista donde se van a cargar los datos de los archivos
@@ -41,7 +40,7 @@ public class MovingViolationsManager {
 	/**
 	 * Metodo constructor
 	 */
-	public MovingViolationsManager()
+	public Manager()
 	{
 		
 
@@ -101,7 +100,6 @@ public class MovingViolationsManager {
 
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String ss = gson.toJson(lista);
-		System.out.println(ss);
 		
 		
 		try {

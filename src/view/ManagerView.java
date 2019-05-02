@@ -2,19 +2,17 @@ package view;
 
 import java.io.File;
 
-import model.data_structures.IArregloDinamico;
-import model.data_structures.IColaPrioridad;
-import model.data_structures.IQueue;
-import model.data_structures.IStack;
-import model.data_structures.ITablaSimOrd;
-import model.data_structures.MaxHeapCP;
 
 public class ManagerView 
 {
 	/**
 	 * Constante con el numero maximo de datos maximo que se deben imprimir en consola
-	 */
+	*/
 	public static final int N = 20;
+	
+	public ManagerView() {
+		
+	}
 	
 	public void printMenu() {
 		System.out.println("---------ISIS 1206 - Estructuras de datos----------");

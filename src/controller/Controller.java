@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 import java.io.File;
 
-import model.logic.JavaAJSON;
 import model.logic.Manager;
 import view.ManagerView;
 

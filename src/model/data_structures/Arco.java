@@ -1,82 +1,74 @@
 package model.data_structures;
 
-import model.logic.infoArco;
-
-public class Arco implements Comparable<Arco> {
+public class Arco<IA extends InfoArco> implements Comparable<Arco<? extends InfoArco>> {
 
 	private int v;
 	private int w;
-	private infoArco informacion;
-	
-	 /**
-	  * @param v nodo v
-	  * @param w nodo w
-	  * @param pInformacion información del arco
-	  * inicializa un arco de v a w 
-	  */
-    public Arco(int v, int w, infoArco pInformacion) {
-        this.v = v;
-        this.w = w;
-        this.informacion = pInformacion;
-    }
+	private IA informacion;
 
-    /**
-     * @return la información pertinente del arco
-     */
-    public infoArco darInformacion(){
-    	return informacion;
-    }
-    
-    /**
-     * Cambia la información del arco
-     * @param pNuevaInformacion nueva información a ser suministrada en el arco
-     */
-    public void cambiarInformacion(infoArco pNuevaInformacion){
-    	informacion = pNuevaInformacion;
-    }
-    
-    /**
-     * @return el id del arco
-     */
-    public int darIdArco(){
-    	return informacion.darIdArco();
-    }
-    
-    
-    /**
-     * @return el peso del arco
-     */
-    public double weight() {
-        return informacion.darPesoArco();
-    }
-
-    /**
-     * @return cualquiera de los arcos
-     */
-    public int either() {
-        return v;
-    }
-
-
-    /**
-     * @param vertex 
-     * @return retorna el otro vértice diferente al dado por parámetro
-     */
-    public int other(int vertex) {
-        if      (vertex == v) return w;
-        else if (vertex == w) return v;
-        else throw new IllegalArgumentException("Illegal endpoint");
-    }
-
-	
 	/**
-	 * Comparador entre arcos por su pedo
+	 * @param v            nodo v
+	 * @param w            nodo w
+	 * @param pInformacion informaciï¿½n del arco inicializa un arco de v a w
+	 */
+	public Arco(int v, int w, IA pInformacion) {
+		this.v = v;
+		this.w = w;
+		this.informacion = pInformacion;
+	}
+
+	/**
+	 * @return la informaciï¿½n pertinente del arco
+	 */
+	public IA darInformacion() {
+		return informacion;
+	}
+
+	/**
+	 * Cambia la informaciï¿½n del arco
+	 * 
+	 * @param pNuevaInformacion nueva informaciï¿½n a ser suministrada en el arco
+	 */
+	public void cambiarInformacion(IA pNuevaInformacion) {
+		informacion = pNuevaInformacion;
+	}
+	/*   
+	*//**
+		 * @return el id del arco
+		 */
+	/*
+	 * public int darIdArco(){ return informacion.darIdArco(); }
+	 * 
+	 * 
+	 /**
+	  * @return el peso del arco
+	  */
+	 public double weight() { return informacion.darPesoArco(); }
+
+	/**
+	 * @return cualquiera de los arcos
+	 */
+	public int either() {
+		return v;
+	}
+
+	/**
+	 * @param vertex
+	 * @return retorna el otro vï¿½rtice diferente al dado por parï¿½metro
+	 */
+	public int other(int vertex) {
+		if (vertex == v)
+			return w;
+		else if (vertex == w)
+			return v;
+		else
+			throw new IllegalArgumentException("Illegal endpoint");
+	}
+
+	/**
+	 * Comparador entre arcos por su peso
 	 */
 	@Override
-	public int compareTo(Arco arg0) {
-		// TODO Auto-generated method stub
+	public int compareTo(Arco<? extends InfoArco> arg0) {
 		return Double.compare(this.informacion.darPesoArco(), arg0.informacion.darPesoArco());
-	}
-		
-
-}
+	}}
